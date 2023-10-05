@@ -113,14 +113,24 @@
                                                     </div>
                                                 @endguest
 
+                                                @auth('admin')
+                                                    <div class="flex-grow-1">
+                                                        <span
+                                                            class="fw-semibold d-block">{{ Auth::guard('admin')->user()->name }}</span>
+                                                        <small
+                                                            class="text-muted">a{{ Auth::guard('admin')->user()->email }}</small>
+                                                    </div>
+                                                @endauth
+
                                                 @auth('web')
                                                     <div class="flex-grow-1">
                                                         <span
                                                             class="fw-semibold d-block">{{ Auth::guard('web')->user()->name }}</span>
                                                         <small
-                                                            class="text-muted">{{ Auth::guard('web')->user()->email }}</small>
+                                                            class="text-muted">w{{ Auth::guard('web')->user()->email }}</small>
                                                     </div>
                                                 @endauth
+
                                             </div>
                                         </a>
                                     </li>
@@ -153,15 +163,17 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
+
+                                        @if (auth('admin')->check())
+                                            <form method="POST" action="{{ route('logout.admin') }}">
+                                        @endif
                                         @if (auth('web')->check())
-                                            <form method="POST" action="{{ route('logout') }}">
-                                            @elseif(auth('web')->check())
-                                                <form method="POST" action="{{ route('logout') }}">
+                                        <form method="POST" action="{{ route('logout') }}">
                                         @endif
                                         @csrf
                                         <a class="dropdown-item" href="#"
                                             onclick="event.preventDefault();
-                        this.closest('form').submit();"><i
+                                            this.closest('form').submit();"><i
                                                 class="bx bx-log-out"></i>Log Out</a>
                                         </form>
                                         </a>

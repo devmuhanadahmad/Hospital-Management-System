@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\backend\Admin\DashboardAdminController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\backend\User\DashboardUserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,9 +29,16 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::group([
-    'middleware'=>'auth'
+    'middleware'=>'auth:web'
 ],function(){
-    Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+    Route::get('/dashboard',[DashboardUserController::class,'index'])->name('dashboard');
+
+});
+
+Route::group([
+    'middleware'=>'auth:admin'
+],function(){
+    Route::get('/dashboard/admin',[DashboardAdminController::class,'index'])->name('dashboard.admin');
 
 });
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AdminAuthenticatedSessionController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -20,8 +21,6 @@ Route::middleware('guest')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
 
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
-
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->name('password.request');
 
@@ -33,6 +32,12 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.store');
+
+   //auth user
+   Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('login');
+
+   //auth admin  AdminAuthenticatedSessionController
+   Route::post('admin/login', [AdminAuthenticatedSessionController::class, 'store'])->name('loginAdmin.store');
 });
 
 Route::middleware('auth')->group(function () {
@@ -56,4 +61,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+
+
 });
+Route::post('admin/logout', [AdminAuthenticatedSessionController::class, 'destroy'])->middleware('auth:admin')
+                ->name('logout.admin');

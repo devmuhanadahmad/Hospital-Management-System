@@ -1,47 +1,112 @@
-<x-guest-layout>
-    <!-- Session Status -->
+<x-auth title="Login">
+    @push('css')
+        <style>
+            .loginForm {
+                display: none;
+            }
+        </style>
+    @endpush
+    <!-- /Logo -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
+    <x-error-message/>
+    <div class="mb-3">
+        <label for="email" class="form-label">User Type Login</label>
+        <select class="form-select" id="selectChoose" aria-label="Default select example">
+            <option selected>Open this select menu</option>
+            <option value="patient">Patient</option>
+            <option value="doctor">Doctor</option>
+        </select>
+    </div>
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+    <div class="loginForm" id="patient">
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}"
+                    placeholder="Enter your email" autofocus />
+                @error('email')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+            <div class="mb-3 form-password-toggle">
+                <div class="d-flex justify-content-between">
+                    <label class="form-label" for="password">Password</label>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+                    @if (Route::has('password.request'))
+                        <a href="{{ route('password.request') }}">
+                            <small>Forgot Password?</small>
+                        </a>
+                    @endif
+                </div>
+                <div class="input-group input-group-merge">
+                    <input type="password" id="password" class="form-control" name="password"
+                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                        aria-describedby="password" />
+                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                </div>
+            </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <div class="mb-3">
+                <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+            </div>
+        </form>
+    </div>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+    <div class="loginForm" id="doctor">
+        <form method="POST" action="{{ route('loginAdmin.store') }}">
+            @csrf
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}"
+                    placeholder="Enter your email" autofocus />
+                @error('email')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+            <div class="mb-3 form-password-toggle">
+                <div class="d-flex justify-content-between">
+                    <label class="form-label" for="password">Password</label>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+                    @if (Route::has('password.request'))
+                        <a href="{{ route('password.request') }}">
+                            <small>Forgot Password?</small>
+                        </a>
+                    @endif
+                </div>
+                <div class="input-group input-group-merge">
+                    <input type="password" id="password" class="form-control" name="password"
+                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                        aria-describedby="password" />
+                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                </div>
+            </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
+            <div class="mb-3">
+                <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+            </div>
+        </form>
+    </div>
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
 
-            <x-primary-button class="ml-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+    <p class="text-center">
+        <span>New on our platform?</span>
+        <a href="{{ route('register') }}">
+            <span>Create an account</span>
+        </a>
+    </p>
+    </div>
+    </div>
+    <!-- /Register -->
+
+    @push('js')
+        <script>
+            $('#selectChoose').change(function() {
+                var myID = $(this).val();
+                $('.loginForm').each(function() {
+                    myID === $(this).attr('id') ? $(this).show() : $(this).hide();
+                });
+            });
+        </script>
+    @endpush
+</x-auth>
