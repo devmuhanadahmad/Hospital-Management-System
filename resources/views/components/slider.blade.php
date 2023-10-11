@@ -68,20 +68,28 @@
 
     <ul class="menu-inner py-1">
       <!-- Dashboard -->
-      <li class="menu-item active">
-        <a href="#" class="menu-link">
+      <li class="menu-item {{ Route::is('dashboard')? 'active' : '' }}">
+        <a href="{{route('dashboard')}}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-home-circle"></i>
           <div data-i18n="Analytics">Dashboard</div>
         </a>
       </li>
 
       <!-- Layouts -->
-      <li class="menu-item">
-        <a href="javascript:void(0);" class="menu-link menu-toggle">
-          <i class="menu-icon tf-icons bx bx-layout"></i>
-          <div data-i18n="Layouts">Layouts</div>
+      <li class="menu-item   {{ Route::is('section.*')? 'active' : '' }}">
+        <a href="{{route('section.index')}}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-home-circle"></i>
+          <div data-i18n="Analytics">Sections</div>
         </a>
       </li>
+
+      <li class="menu-item   {{ Route::is('doctor.*')? 'active' : '' }}">
+        <a href="{{route('doctor.index')}}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-home-circle"></i>
+          <div data-i18n="Analytics">Doctors</div>
+        </a>
+      </li>
+
 
     </ul>
   </aside>

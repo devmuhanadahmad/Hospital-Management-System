@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\backend\Admin\DashboardAdminController;
+use App\Http\Controllers\Backend\Admin\DoctorController;
+use App\Http\Controllers\Backend\Admin\SectionController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\backend\User\DashboardUserController;
 use App\Http\Controllers\ProfileController;
@@ -39,6 +41,10 @@ Route::group([
     'middleware'=>'auth:admin'
 ],function(){
     Route::get('/dashboard/admin',[DashboardAdminController::class,'index'])->name('dashboard.admin');
+    Route::resources([
+        'section'=>SectionController::class,
+        'doctor'=>DoctorController::class,
+    ]);
 
 });
 

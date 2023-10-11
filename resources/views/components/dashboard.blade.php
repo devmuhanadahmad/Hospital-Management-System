@@ -168,7 +168,7 @@
                                             <form method="POST" action="{{ route('logout.admin') }}">
                                         @endif
                                         @if (auth('web')->check())
-                                        <form method="POST" action="{{ route('logout') }}">
+                                            <form method="POST" action="{{ route('logout') }}">
                                         @endif
                                         @csrf
                                         <a class="dropdown-item" href="#"
@@ -199,8 +199,7 @@
                                 document.write(new Date().getFullYear());
                             </script>
                             , made with ❤️ by
-                            <a href="https://themeselection.com" target="_blank"
-                                class="footer-link fw-bolder">ThemeSelection</a>
+                            Muhanad Alnamruti
                         </div>
                         <div>
                             <a href="https://themeselection.com/license/" class="footer-link me-4"
@@ -230,10 +229,7 @@
     </div>
     <!-- / Layout wrapper -->
 
-    <div class="buy-now">
-        <a href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/" target="_blank"
-            class="btn btn-danger btn-buy-now">Upgrade to Pro</a>
-    </div>
+
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
