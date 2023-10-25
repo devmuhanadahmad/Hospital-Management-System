@@ -90,6 +90,12 @@
         </a>
       </li>
 
+      <li class="menu-item   {{ Route::is('pattient.*')? 'active' : '' }}">
+        <a href="{{route('pattient.index')}}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-home-circle"></i>
+          <div data-i18n="Analytics">Pattients</div>
+        </a>
+      </li>
 
     </ul>
   </aside>
