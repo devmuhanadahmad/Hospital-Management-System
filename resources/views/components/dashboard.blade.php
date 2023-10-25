@@ -131,6 +131,16 @@
                                                     </div>
                                                 @endauth
 
+                                                @auth('doctor')
+                                                    <div class="flex-grow-1">
+                                                        <span
+                                                            class="fw-semibold d-block">{{ Auth::guard('doctor')->user()->name }}</span>
+                                                        <small
+                                                            class="text-muted">w{{ Auth::guard('doctor')->user()->email }}</small>
+                                                    </div>
+                                                @endauth
+
+
                                             </div>
                                         </a>
                                     </li>
@@ -166,6 +176,9 @@
 
                                         @if (auth('admin')->check())
                                             <form method="POST" action="{{ route('logout.admin') }}">
+                                        @endif
+                                        @if (auth('doctor')->check())
+                                            <form method="POST" action="{{ route('logout.doctor') }}">
                                         @endif
                                         @if (auth('web')->check())
                                             <form method="POST" action="{{ route('logout') }}">

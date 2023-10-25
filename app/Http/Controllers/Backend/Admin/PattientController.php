@@ -46,8 +46,8 @@ class PattientController extends Controller
            try {
                $request->merge([
                    'status' => 'active',
-                   'password' => $request->input('identity'),
-               ]);
+                   'password' => Hash::make($request->input('identity')),
+                ]);
                //upload image
                $data = $this->uploadImage($request, 'image', 'name', 'pattients', 'upload_image');
 

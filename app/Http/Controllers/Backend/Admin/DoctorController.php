@@ -53,7 +53,7 @@ class DoctorController extends Controller
             $request->merge([
                 'status' => 'active',
                 //'days' => implode(',', $request->days),
-                'password' => $request->input('identity'),
+                'password' => Hash::make($request->input('identity')),
             ]);
             //upload image
             $data = $this->uploadImage($request, 'image', 'name', 'doctors', 'upload_image');

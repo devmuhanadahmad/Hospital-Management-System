@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\Admin\DoctorController;
 use App\Http\Controllers\Backend\Admin\PattientController;
 use App\Http\Controllers\Backend\Admin\SectionController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\Doctor\DashboardDoctorController;
 use App\Http\Controllers\backend\User\DashboardUserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -45,15 +46,23 @@ Route::group([
     Route::put('/dashboard/{doctor}/UpdateStatus/doctor',[DoctorController::class,'updateStatus'])->name('doctor.updateStatus');
     Route::put('/dashboard/{doctor}/UpdatePassword/doctor',[DoctorController::class,'updatePassword'])->name('doctor.updatePassword');
 
-    Route::put('/dashboard/{id}/UpdateStatus/pattient',[PattientController::class,'updateStatus'])->name('pattient.updateStatus');
-    Route::put('/dashboard/{id}/UpdatePassword/pattient',[PattientController::class,'updatePassword'])->name('pattient.updatePassword');
+    Route::put('/dashboard/admin/{id}/UpdateStatus/pattient',[PattientController::class,'updateStatus'])->name('pattient.updateStatus');
+    Route::put('/dashboard/admin/{id}/UpdatePassword/pattient',[PattientController::class,'updatePassword'])->name('pattient.updatePassword');
 
 
     Route::resources([
         'section'=>SectionController::class,
-        'doctor'=>DoctorController::class,
+        '/admin/doctor'=>DoctorController::class,
         'pattient'=>PattientController::class,
     ]);
+
+});
+
+
+Route::group([
+    'middleware'=>'auth:doctor'
+],function(){
+    Route::get('/dashboard/doctor',[DashboardDoctorController::class,'index'])->name('dashboard.doctor');
 
 });
 
