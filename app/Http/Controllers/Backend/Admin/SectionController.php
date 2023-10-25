@@ -29,10 +29,7 @@ class SectionController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|min:3',
-            'notes' => 'nullable|string',
-        ]);
+           $this->checkRequest($request);
            Section::create($request->all());
            return redirect()->route('section.index')->with('add', __("The storage  was completed successfully"));
     }
@@ -58,6 +55,7 @@ class SectionController extends Controller
      */
     public function update(Request $request, Section $section)
     {
+        $this->checkRequest($request);
         $request->validate([
             'name' => 'required|string|min:3',
             'notes' => 'nullable|string',
@@ -73,5 +71,12 @@ class SectionController extends Controller
     {
         $section->delete();
         return redirect()->route('section.index')->with('destroy', __("The deletion was completed successfully"));
+    }
+
+    protected function checkRequest(Request $request){
+        return  $request->validate([
+            'name' => 'required|string|min:3',
+            'notes' => 'nullable|string',
+        ]);
     }
 }

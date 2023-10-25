@@ -3,7 +3,7 @@
     ])
 <div class="col">
     @if ($lable)
-    <label for="" class="control-label ">{{ $lable }}</label>
+    <label for="" class="control-label text-capitalize">{{ $lable }}</label>
     @endif
     <select name="{{$name}}"
             {{$attributes->class(['form-control','SlectBox','is-invalid'=>$errors->has($name) ])}} onclick="console.log($(this).val())"

@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        $this->call([UserSeeder::class,AdminSeeder::class]);
+        $this->call([UserSeeder::class,AdminSeeder::class,ApointmentySeeder::class]);
         Section::factory(10)->create();
         Doctor::factory(10)->create();
     }

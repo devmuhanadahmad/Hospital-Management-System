@@ -41,6 +41,10 @@ Route::group([
     'middleware'=>'auth:admin'
 ],function(){
     Route::get('/dashboard/admin',[DashboardAdminController::class,'index'])->name('dashboard.admin');
+    Route::put('/dashboard/{doctor}/UpdateStatus',[DoctorController::class,'updateStatus'])->name('doctor.updateStatus');
+    Route::put('/dashboard/{doctor}/UpdatePassword',[DoctorController::class,'updatePassword'])->name('doctor.updatePassword');
+
+
     Route::resources([
         'section'=>SectionController::class,
         'doctor'=>DoctorController::class,
