@@ -35,7 +35,7 @@ Route::middleware('guest')->group(function () {
         ->name('password.store');
 
     //auth user
-    Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('login');
+    Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('logout.user');
 
     //auth admin  AdminAuthenticatedSessionController
     Route::post('admin/login', [AdminAuthenticatedSessionController::class, 'store'])->name('loginAdmin.store');
@@ -65,7 +65,7 @@ Route::middleware('auth')->group(function () {
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-        ->name('logout');
+        ->name('logout.user');
 
 });
 Route::post('admin/logout', [AdminAuthenticatedSessionController::class, 'destroy'])->middleware('auth:admin')

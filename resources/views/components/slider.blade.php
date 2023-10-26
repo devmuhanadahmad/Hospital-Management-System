@@ -109,7 +109,7 @@
         @endauth
 
 
-        @auth('pattient')
+        @auth('web')
         <!-- Dashboard Doctor --------------------------------------------------------------------------------------------->
         <li class="menu-item {{ Route::is('dashboard.*') ? 'active' : '' }}">
             <a href="{{ route('dashboard') }}" class="menu-link">

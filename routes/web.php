@@ -1,12 +1,15 @@
 <?php
 
+use App\Http\Controllers\Backend\Admin\AdminProfileController;
 use App\Http\Controllers\backend\Admin\DashboardAdminController;
 use App\Http\Controllers\Backend\Admin\DoctorController;
 use App\Http\Controllers\Backend\Admin\PattientController;
 use App\Http\Controllers\Backend\Admin\SectionController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\Doctor\DashboardDoctorController;
+use App\Http\Controllers\Backend\Doctor\DoctorProfileController;
 use App\Http\Controllers\backend\User\DashboardUserController;
+use App\Http\Controllers\Backend\User\PattientProfileController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +39,9 @@ Route::group([
     'middleware'=>'auth:web'
 ],function(){
     Route::get('/dashboard',[DashboardUserController::class,'index'])->name('dashboard');
+     //profile controller
+     Route::get('pattient/profile/edit', [PattientProfileController::class,'edit'])->name('pattient.profile.edit');
+     Route::patch('pattient/profile/update', [PattientProfileController::class,'update'])->name('pattient.profile.update');
 
 });
 
@@ -48,6 +54,10 @@ Route::group([
 
     Route::put('/dashboard/admin/{id}/UpdateStatus/pattient',[PattientController::class,'updateStatus'])->name('pattient.updateStatus');
     Route::put('/dashboard/admin/{id}/UpdatePassword/pattient',[PattientController::class,'updatePassword'])->name('pattient.updatePassword');
+
+     //profile controller
+   Route::get('admin/profile/edit', [AdminProfileController::class,'edit'])->name('admin.profile.edit');
+   Route::patch('admin/profile/update', [AdminProfileController::class,'update'])->name('admin.profile.update');
 
 
     Route::resources([
@@ -63,6 +73,8 @@ Route::group([
     'middleware'=>'auth:doctor'
 ],function(){
     Route::get('/dashboard/doctor',[DashboardDoctorController::class,'index'])->name('dashboard.doctor');
+    Route::get('doctor/profile/edit', [DoctorProfileController::class,'edit'])->name('doctor.profile.edit');
+    Route::patch('doctor/profile/update', [DoctorProfileController::class,'update'])->name('doctor.profile.update');
 
 });
 

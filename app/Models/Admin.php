@@ -41,4 +41,14 @@ class Admin extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+
+    public function getNameAttribute($value){
+        return ucfirst($value);
+    }
+
+    public function profile(){
+         return $this->hasOne(AdminProfile::class)->withDefault();
+    }
 }

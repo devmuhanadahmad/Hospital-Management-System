@@ -80,30 +80,36 @@
 
                         <ul class="navbar-nav flex-row align-items-center ms-auto">
                             <!-- Place this tag where you want the button to render. -->
-                            <li class="nav-item lh-1 me-3">
-                                <a class="github-button"
-                                    href="https://github.com/themeselection/sneat-html-admin-template-free"
-                                    data-icon="octicon-star" data-size="large" data-show-count="true"
-                                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">Star</a>
-                            </li>
+
+                           <li class="nav-item lh-1 me-3">
+                            <a class="github-button"
+                                href="https://github.com/themeselection/sneat-html-admin-template-free"
+                                data-icon="octicon-star" data-size="large" data-show-count="true"
+                                aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">Star</a>
+                        </li>
+
 
                             <!-- User -->
+
+
+
+                            @auth('admin')
                             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                     data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img src="../assets/img/avatars/1.png" alt
-                                            class="w-px-40 h-auto rounded-circle" />
+                                        <img src="{{ Auth::guard('admin')->user()->profile->image_url }}" alt
+                                            class=" rounded-circle" width="100" height="100" />
                                     </div>
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
+                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li>
                                         <a class="dropdown-item" href="#">
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <img src="../assets/img/avatars/1.png" alt
-                                                            class="w-px-40 h-auto rounded-circle" />
+                                                        <img src="{{ Auth::guard('admin')->user()->profile->image_url }}" alt="image user"
+                                                        class=" rounded-circle" width="100" height="100" />
                                                     </div>
                                                 </div>
                                                 @guest
@@ -112,35 +118,12 @@
                                                         <small class="text-muted">Guest</small>
                                                     </div>
                                                 @endguest
-
-                                                @auth('admin')
                                                     <div class="flex-grow-1">
                                                         <span
                                                             class="fw-semibold d-block">{{ Auth::guard('admin')->user()->name }}</span>
                                                         <small
-                                                            class="text-muted">a{{ Auth::guard('admin')->user()->email }}</small>
+                                                            class="text-muted">{{ Auth::guard('admin')->user()->email }}</small>
                                                     </div>
-                                                @endauth
-
-                                                @auth('web')
-                                                    <div class="flex-grow-1">
-                                                        <span
-                                                            class="fw-semibold d-block">{{ Auth::guard('web')->user()->name }}</span>
-                                                        <small
-                                                            class="text-muted">w{{ Auth::guard('web')->user()->email }}</small>
-                                                    </div>
-                                                @endauth
-
-                                                @auth('doctor')
-                                                    <div class="flex-grow-1">
-                                                        <span
-                                                            class="fw-semibold d-block">{{ Auth::guard('doctor')->user()->name }}</span>
-                                                        <small
-                                                            class="text-muted">w{{ Auth::guard('doctor')->user()->email }}</small>
-                                                    </div>
-                                                @endauth
-
-
                                             </div>
                                         </a>
                                     </li>
@@ -148,7 +131,7 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="{{route('admin.profile.edit')}}">
                                             <i class="bx bx-user me-2"></i>
                                             <span class="align-middle">My Profile</span>
                                         </a>
@@ -173,16 +156,7 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-
-                                        @if (auth('admin')->check())
                                             <form method="POST" action="{{ route('logout.admin') }}">
-                                        @endif
-                                        @if (auth('doctor')->check())
-                                            <form method="POST" action="{{ route('logout.doctor') }}">
-                                        @endif
-                                        @if (auth('web')->check())
-                                            <form method="POST" action="{{ route('logout') }}">
-                                        @endif
                                         @csrf
                                         <a class="dropdown-item" href="#"
                                             onclick="event.preventDefault();
@@ -192,6 +166,154 @@
                                         </a>
                                     </li>
                                 </ul>
+                                 @endauth
+
+                                 @auth('web')
+                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
+                                        data-bs-toggle="dropdown">
+                                        <div class="avatar avatar-online">
+                                            <img src="{{ Auth::guard('web')->user()->profile->image_url }}" alt
+                                                class=" rounded-circle" width="100" height="100" />
+                                        </div>
+                                    </a>
+                                 <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <div class="d-flex">
+                                                <div class="flex-shrink-0 me-3">
+                                                    <div class="avatar avatar-online">
+                                                        <img src="{{ Auth::guard('web')->user()->profile->image_url }}" alt
+                                                        class=" rounded-circle" width="100" height="100"/>
+                                                    </div>
+                                                </div>
+
+                                                    <div class="flex-grow-1">
+                                                        <span
+                                                            class="fw-semibold d-block">{{ Auth::guard('web')->user()->name }}</span>
+                                                        <small
+                                                            class="text-muted">a{{ Auth::guard('web')->user()->email }}</small>
+                                                    </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown-divider"></div>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{route('pattient.profile.edit')}}">
+                                            <i class="bx bx-user me-2"></i>
+                                            <span class="align-middle">My Profile</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="bx bx-cog me-2"></i>
+                                            <span class="align-middle">Settings</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <span class="d-flex align-items-center align-middle">
+                                                <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                                                <span class="flex-grow-1 align-middle">Billing</span>
+                                                <span
+                                                    class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown-divider"></div>
+                                    </li>
+                                    <li>
+                                            <form method="POST" action="{{ route('logout.user') }}">
+                                        @csrf
+                                        <a class="dropdown-item" href="#"
+                                            onclick="event.preventDefault();
+                                            this.closest('form').submit();"><i
+                                                class="bx bx-log-out"></i>Log Out</a>
+                                        </form>
+                                        </a>
+                                    </li>
+                                </ul>
+                                 @endauth
+
+
+
+                                 @auth('doctor')
+                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
+                                        data-bs-toggle="dropdown">
+                                        <div class="avatar avatar-online">
+                                            <img src="{{ Auth::guard('doctor')->user()->profile->image_url }}" alt
+                                                class=" rounded-circle" width="100" height="100" />
+                                        </div>
+                                    </a>
+                                 <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <div class="d-flex">
+                                                <div class="flex-shrink-0 me-3">
+                                                    <div class="avatar avatar-online">
+                                                        <img src="{{ Auth::guard('doctor')->user()->profile->image_url }}" alt
+                                                        class=" rounded-circle" width="100" height="100"/>
+                                                    </div>
+                                                </div>
+                                                @guest
+                                                    <div class="flex-grow-1">
+                                                        <span class="fw-semibold d-block">John Doe</span>
+                                                        <small class="text-muted">Guest</small>
+                                                    </div>
+                                                @endguest
+                                                    <div class="flex-grow-1">
+                                                        <span
+                                                            class="fw-semibold d-block">{{ Auth::guard('doctor')->user()->name }}</span>
+                                                        <small
+                                                            class="text-muted">a{{ Auth::guard('doctor')->user()->email }}</small>
+                                                    </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown-divider"></div>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{route('doctor.profile.edit')}}">
+                                            <i class="bx bx-user me-2"></i>
+                                            <span class="align-middle">My Profile</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="bx bx-cog me-2"></i>
+                                            <span class="align-middle">Settings</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <span class="d-flex align-items-center align-middle">
+                                                <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                                                <span class="flex-grow-1 align-middle">Billing</span>
+                                                <span
+                                                    class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown-divider"></div>
+                                    </li>
+                                    <li>
+                                            <form method="POST" action="{{ route('logout.doctor') }}">
+                                        @csrf
+                                        <a class="dropdown-item" href="#"
+                                            onclick="event.preventDefault();
+                                            this.closest('form').submit();"><i
+                                                class="bx bx-log-out"></i>Log Out</a>
+                                        </form>
+                                        </a>
+                                    </li>
+                                </ul>
+                                 @endauth
                             </li>
                             <!--/ User -->
                         </ul>
