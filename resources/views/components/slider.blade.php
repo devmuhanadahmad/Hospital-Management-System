@@ -86,7 +86,22 @@
                     <div data-i18n="Analytics">Pattients</div>
                 </a>
             </li>
+
+            <li class="menu-item   {{ Route::is('ambulance.*') ? 'active' : '' }}">
+                <a href="{{ route('ambulance.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                    <div data-i18n="Analytics">Ambulances</div>
+                </a>
+            </li>
+
+            <li class="menu-item   {{ Route::is('driver.*') ? 'active' : '' }}">
+                <a href="{{ route('driver.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                    <div data-i18n="Analytics">Drivers</div>
+                </a>
+            </li>
         @endauth
+
 
 
 

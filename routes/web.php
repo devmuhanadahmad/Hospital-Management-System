@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Backend\Admin\AdminProfileController;
+use App\Http\Controllers\Backend\Admin\AmbulanceController;
 use App\Http\Controllers\backend\Admin\DashboardAdminController;
 use App\Http\Controllers\Backend\Admin\DoctorController;
+use App\Http\Controllers\Backend\Admin\DriverController;
 use App\Http\Controllers\Backend\Admin\PattientController;
 use App\Http\Controllers\Backend\Admin\SectionController;
 use App\Http\Controllers\Backend\DashboardController;
@@ -55,6 +57,11 @@ Route::group([
     Route::put('/dashboard/admin/{id}/UpdateStatus/pattient',[PattientController::class,'updateStatus'])->name('pattient.updateStatus');
     Route::put('/dashboard/admin/{id}/UpdatePassword/pattient',[PattientController::class,'updatePassword'])->name('pattient.updatePassword');
 
+    Route::put('/dashboard/admin/{id}/UpdateStatus/ambulances',[AmbulanceController::class,'updateStatus'])->name('ambulance.updateStatus');
+
+    Route::put('/dashboard/admin/{id}/UpdateStatus/driver',[DriverController::class,'updateStatus'])->name('driver.updateStatus');
+
+
      //profile controller
    Route::get('admin/profile/edit', [AdminProfileController::class,'edit'])->name('admin.profile.edit');
    Route::patch('admin/profile/update', [AdminProfileController::class,'update'])->name('admin.profile.update');
@@ -64,6 +71,8 @@ Route::group([
         'section'=>SectionController::class,
         '/admin/doctor'=>DoctorController::class,
         'pattient'=>PattientController::class,
+        'ambulance'=>AmbulanceController::class,
+        'driver'=>DriverController::class,
     ]);
 
 });
