@@ -67,6 +67,8 @@ Route::group([
    Route::patch('admin/profile/update', [AdminProfileController::class,'update'])->name('admin.profile.update');
 
 
+   //Service
+   Route::view('services','backend.admin.service.index')->name('service.index');
     Route::resources([
         'section'=>SectionController::class,
         '/admin/doctor'=>DoctorController::class,

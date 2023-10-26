@@ -100,6 +100,13 @@
                     <div data-i18n="Analytics">Drivers</div>
                 </a>
             </li>
+
+            <li class="menu-item   {{ Route::is('service.*') ? 'active' : '' }}">
+                <a href="{{ route('service.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                    <div data-i18n="Analytics">Services</div>
+                </a>
+            </li>
         @endauth
 
 

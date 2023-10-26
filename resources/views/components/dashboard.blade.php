@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="{{ asset('../assets/vendor/libs/apex-charts/apex-charts.css') }}" />
 
     <!-- Page CSS -->
-
+    @stack('css')
     <!-- Helpers -->
     <script src="{{ asset('../assets/vendor/js/helpers.js') }}"></script>
 
@@ -387,6 +387,7 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="{{ asset('https://buttons.github.io/buttons.js') }}"></script>
+    @stack('js')
 </body>
 
 </html>
