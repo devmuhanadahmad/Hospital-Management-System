@@ -34,6 +34,11 @@ class Service extends Component
     public function create()
     {
         $this->showTable = false;
+        $this->service_id = '';
+        $this->name ='';
+        $this->price ='';
+        $this->notes ='';
+        $this->status = '';
     }
 
     public function edit($id)

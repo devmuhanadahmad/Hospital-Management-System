@@ -69,6 +69,8 @@ Route::group([
 
    //Service
    Route::view('services','backend.admin.service.index')->name('service.index');
+   Route::view('single-invoice','backend.admin.singleInvoice.index')->name('singleInvoice.index');
+
     Route::resources([
         'section'=>SectionController::class,
         '/admin/doctor'=>DoctorController::class,

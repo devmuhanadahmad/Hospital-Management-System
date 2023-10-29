@@ -107,6 +107,13 @@
                     <div data-i18n="Analytics">Services</div>
                 </a>
             </li>
+
+            <li class="menu-item   {{ Route::is('singleInvoice.*') ? 'active' : '' }}">
+                <a href="{{ route('singleInvoice.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                    <div data-i18n="Analytics">Single Invoice</div>
+                </a>
+            </li>
         @endauth
 
 
