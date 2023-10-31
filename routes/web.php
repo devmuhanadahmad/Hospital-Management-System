@@ -47,40 +47,6 @@ Route::group([
 
 });
 
-Route::group([
-    'middleware'=>'auth:admin'
-],function(){
-    Route::get('/dashboard/admin',[DashboardAdminController::class,'index'])->name('dashboard.admin');
-    Route::put('/dashboard/{doctor}/UpdateStatus/doctor',[DoctorController::class,'updateStatus'])->name('doctor.updateStatus');
-    Route::put('/dashboard/{doctor}/UpdatePassword/doctor',[DoctorController::class,'updatePassword'])->name('doctor.updatePassword');
-
-    Route::put('/dashboard/admin/{id}/UpdateStatus/pattient',[PattientController::class,'updateStatus'])->name('pattient.updateStatus');
-    Route::put('/dashboard/admin/{id}/UpdatePassword/pattient',[PattientController::class,'updatePassword'])->name('pattient.updatePassword');
-
-    Route::put('/dashboard/admin/{id}/UpdateStatus/ambulances',[AmbulanceController::class,'updateStatus'])->name('ambulance.updateStatus');
-
-    Route::put('/dashboard/admin/{id}/UpdateStatus/driver',[DriverController::class,'updateStatus'])->name('driver.updateStatus');
-
-
-     //profile controller
-   Route::get('admin/profile/edit', [AdminProfileController::class,'edit'])->name('admin.profile.edit');
-   Route::patch('admin/profile/update', [AdminProfileController::class,'update'])->name('admin.profile.update');
-
-
-   //Service
-   Route::view('services','backend.admin.service.index')->name('service.index');
-   Route::view('single-invoice','backend.admin.singleInvoice.index')->name('singleInvoice.index');
-
-    Route::resources([
-        'section'=>SectionController::class,
-        '/admin/doctor'=>DoctorController::class,
-        'pattient'=>PattientController::class,
-        'ambulance'=>AmbulanceController::class,
-        'driver'=>DriverController::class,
-    ]);
-
-});
-
 
 Route::group([
     'middleware'=>'auth:doctor'
@@ -92,3 +58,4 @@ Route::group([
 });
 
 require __DIR__.'/auth.php';
+require __DIR__.'/admin.php';

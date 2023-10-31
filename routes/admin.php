@@ -1,0 +1,62 @@
+<?php
+
+use App\Http\Controllers\Backend\Admin\AdminProfileController;
+use App\Http\Controllers\Backend\Admin\AmbulanceController;
+use App\Http\Controllers\backend\Admin\DashboardAdminController;
+use App\Http\Controllers\Backend\Admin\DoctorController;
+use App\Http\Controllers\Backend\Admin\DriverController;
+use App\Http\Controllers\Backend\Admin\PattientController;
+use App\Http\Controllers\Backend\Admin\SectionController;
+use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\Doctor\DashboardDoctorController;
+use App\Http\Controllers\Backend\Doctor\DoctorProfileController;
+use App\Http\Controllers\backend\User\DashboardUserController;
+use App\Http\Controllers\Backend\User\PattientProfileController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+Route::group([
+    'middleware'=>'auth:admin'
+],function(){
+    Route::get('/dashboard/admin',[DashboardAdminController::class,'index'])->name('dashboard.admin');
+    Route::put('/dashboard/{doctor}/UpdateStatus/doctor',[DoctorController::class,'updateStatus'])->name('doctor.updateStatus');
+    Route::put('/dashboard/{doctor}/UpdatePassword/doctor',[DoctorController::class,'updatePassword'])->name('doctor.updatePassword');
+
+    Route::put('/dashboard/admin/{id}/UpdateStatus/pattient',[PattientController::class,'updateStatus'])->name('pattient.updateStatus');
+    Route::put('/dashboard/admin/{id}/UpdatePassword/pattient',[PattientController::class,'updatePassword'])->name('pattient.updatePassword');
+
+    Route::put('/dashboard/admin/{id}/UpdateStatus/ambulances',[AmbulanceController::class,'updateStatus'])->name('ambulance.updateStatus');
+
+    Route::put('/dashboard/admin/{id}/UpdateStatus/driver',[DriverController::class,'updateStatus'])->name('driver.updateStatus');
+
+
+     //profile controller
+   Route::get('admin/profile/edit', [AdminProfileController::class,'edit'])->name('admin.profile.edit');
+   Route::patch('admin/profile/update', [AdminProfileController::class,'update'])->name('admin.profile.update');
+
+
+   //Service
+   Route::view('services','backend.admin.service.index')->name('service.index');
+   Route::view('single-invoice','backend.admin.singleInvoice.index')->name('singleInvoice.index');
+   Route::view('receipt-account','backend.admin.receiptAccount.index')->name('receiptAccount.index');
+
+    Route::resources([
+        'section'=>SectionController::class,
+        '/admin/doctor'=>DoctorController::class,
+        'pattient'=>PattientController::class,
+        'ambulance'=>AmbulanceController::class,
+        'driver'=>DriverController::class,
+    ]);
+
+});
+

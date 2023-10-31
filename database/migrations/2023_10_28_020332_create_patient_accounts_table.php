@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('patient_accounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('single_invoice_id')->constrained('single_invoices')->cascadeOnDelete();
             $table->foreignId('pattient_id')->nullable()->constrained('pattients')->nullOnDelete();
-            $table->float('debit')->default(0);
-            $table->float('credit')->default(0);
+            $table->foreignId('single_invoice_id')->nullable()->constrained('single_invoices')->nullOnDelete();
+            $table->foreignId('receipt_account_id')->nullable()->constrained('receipt_accounts')->nullOnDelete();
+            $table->float('debit')->default(0); //المريض مدين لنا بهذه الفلوس
+            $table->float('credit')->default(0);//المريض دائن لنا بهذه الفلوس
             $table->timestamps();
         });
     }

@@ -27,8 +27,8 @@ class DatabaseSeeder extends Seeder
         // ]);
         // $this->call([UserSeeder::class,AdminSeeder::class,ApointmentySeeder::class]);
         // Section::factory(10)->create();
-        // Doctor::factory(10)->create();
         // Pattient::factory(10)->create();
-        Service::factory(10)->create();
+        // Service::factory(10)->create();
+        Doctor::factory(10)->create();
     }
 }

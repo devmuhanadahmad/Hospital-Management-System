@@ -90,6 +90,8 @@ class SingleInvoice extends Component
         if ($this->type == 'cash') {
             $this->validate();
 
+
+            // في حالة كانت الفاتورة نقدي
             DB::beginTransaction();
             try {
 
@@ -97,8 +99,9 @@ class SingleInvoice extends Component
 
                 $fundAccount = new FundAccount();
                 $fundAccount->single_invoice_id = $invoice->id;
-                $fundAccount->debit = $invoice->total_with_tax;
-                $fundAccount->credit = 00.0;
+                $fundAccount->receipt_account_id = null;
+                $fundAccount->receive = $invoice->total_with_tax;  //استلم الصندوق فلوس من المريض
+                $fundAccount->taking  = 00.0;
                 $fundAccount->save();
                 DB::commit();
                 $this->showTable = true;
@@ -117,7 +120,7 @@ class SingleInvoice extends Component
                 $patientAccount = new PatientAccount();
                 $patientAccount->single_invoice_id = $invoice->id;
                 $patientAccount->pattient_id = $invoice->pattient_id;
-                $patientAccount->debit = $invoice->total_with_tax;
+                $patientAccount->debit = $invoice->total_with_tax;  //المريض مدين لنا بهذه الفلوس
                 $patientAccount->credit = 00.0;
                 $patientAccount->save();
                 DB::commit();
@@ -125,6 +128,7 @@ class SingleInvoice extends Component
                 session()->flash('message', 'Post successfully created.');
             } catch (Exception $e) {
                 DB::rollback();
+               // $e->getMessage();
                 session()->flash('message', 'error.');
             }
         }
@@ -162,3 +166,4 @@ class SingleInvoice extends Component
 
     }
 }
+

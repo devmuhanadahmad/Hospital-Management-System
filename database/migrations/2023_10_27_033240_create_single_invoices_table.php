@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('doctor_id')->nullable()->constrained('doctors')->nullOnDelete();
             $table->foreignId('section_id')->nullable()->constrained('sections')->nullOnDelete();
             $table->foreignId('service_id')->nullable()->constrained('services')->nullOnDelete();
-            $table->double('price')->default(0);
+            $table->double('price')->default(0); //سعر الخدمة 
             $table->double('discount')->default(0);
             $table->string('tax_rate');
             $table->string('tax_value');
